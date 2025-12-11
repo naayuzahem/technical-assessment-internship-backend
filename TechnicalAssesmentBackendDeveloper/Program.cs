@@ -9,26 +9,22 @@ class Program
 
         ItemManager manager = new ItemManager();
 
-        // Part One: Fix the NullReferenceException — NOW FIXED
+        // Part One: Fix the NullReferenceException — DONE
         manager.AddItem("Apple");
         manager.AddItem("Banana");
 
         manager.PrintAllItems();
 
-        // Part Two: Implement the RemoveItem method
+        // Part Two: Implement the RemoveItem method — DONE
         manager.RemoveItem("Apple");
 
-        // Part Three: Introduce a Fruit class and use ItemManager<Fruit>
-        // TODO: Implement this part three.
-
-        // Part Four: Implement an interface IItemManager and make ItemManager implement it.
-        // TODO: Implement this part four.
+        
     }
 }
 
 public class ItemManager
 {
-    // FIX: Initialize list to avoid NullReferenceException
+    // FIXED: Proper initialization to avoid NullReferenceException
     private List<string> items = new List<string>();
 
     public void AddItem(string item)
@@ -44,22 +40,28 @@ public class ItemManager
         }
     }
 
-    // Part Two: To be implemented later
     public void RemoveItem(string item)
     {
-        throw new NotImplementedException("RemoveItem method is not implemented yet. Please remove this line and implement this method.");
+        if (items.Contains(item))
+        {
+            items.Remove(item);
+            Console.WriteLine($"{item} has been removed.");
+        }
+        else
+        {
+            Console.WriteLine($"{item} not found in the list.");
+        }
     }
 
     public void ClearAllItems()
     {
-        // FIX: Replace invalid [] syntax
         items = new List<string>();
     }
 }
 
 public class ItemManager<T>
 {
-    // FIX: Initialize list
+    // FIXED: Proper initialization
     private List<T> items = new List<T>();
 
     public void AddItem(T item)
@@ -77,7 +79,6 @@ public class ItemManager<T>
 
     public void ClearAllItems()
     {
-        // FIX: Replace invalid [] syntax
         items = new List<T>();
     }
 }
