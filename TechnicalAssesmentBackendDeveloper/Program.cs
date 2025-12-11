@@ -5,35 +5,62 @@ class Program
 {
     static void Main(string[] args)
     {
-        Console.WriteLine("Welcome to the Item Manager!");
+        // PART 1: Add Items
+        Console.WriteLine("PART 1: Add Items\n");
 
         ItemManager manager = new ItemManager();
 
         manager.AddItem("Apple");
         manager.AddItem("Banana");
-
-        // Print BEFORE removing
         manager.PrintAllItems();
 
-        // Remove Apple
+        Console.WriteLine(); // space between Part 1 and Part 2
+
+
+        // PART 2: Remove an Item
+        Console.WriteLine("PART 2: Remove an Item\n");
+
         manager.RemoveItem("Apple");
-
-        // Print AFTER removing
         manager.PrintAllItems();
 
-        // Part Three: Using ItemManager<Fruit>
+        Console.WriteLine(); // space between Part 2 and Part 3
+
+
+        // PART 3: Fruit Manager Output
+        Console.WriteLine("PART 3: Fruit Manager Output\n");
+
         ItemManager<Fruit> fruitManager = new ItemManager<Fruit>();
 
         fruitManager.AddItem(new Fruit("Apple", "Red"));
         fruitManager.AddItem(new Fruit("Banana", "Yellow"));
         fruitManager.AddItem(new Fruit("Grapes", "Purple"));
 
-        Console.WriteLine("\nFruit List:");
         fruitManager.PrintAllItems();
+
+        Console.WriteLine(); // final space
     }
 }
 
-public class ItemManager
+
+// PART 4 — INTERFACES
+public interface IItemManager
+{
+    void AddItem(string item);
+    void RemoveItem(string item);
+    void PrintAllItems();
+    void ClearAllItems();
+}
+
+public interface IItemManager<T>
+{
+    void AddItem(T item);
+    void PrintAllItems();
+    void ClearAllItems();
+}
+
+
+// ItemManager implements IItemManager
+public class ItemManager : IItemManager
 {
     private List<string> items = new List<string>();
 
@@ -69,7 +96,9 @@ public class ItemManager
     }
 }
 
-public class ItemManager<T>
+
+// Generic ItemManager implements generic IItemManager
+public class ItemManager<T> : IItemManager<T>
 {
     private List<T> items = new List<T>();
 
@@ -92,6 +121,8 @@ public class ItemManager<T>
     }
 }
 
+
+// Fruit Class (for Part 3)
 public class Fruit
 {
     public string Name { get; set; }
