@@ -9,22 +9,32 @@ class Program
 
         ItemManager manager = new ItemManager();
 
-        // Part One: Fix the NullReferenceException — DONE
         manager.AddItem("Apple");
         manager.AddItem("Banana");
 
+        // Print BEFORE removing
         manager.PrintAllItems();
 
-        // Part Two: Implement the RemoveItem method — DONE
+        // Remove Apple
         manager.RemoveItem("Apple");
 
-        
+        // Print AFTER removing
+        manager.PrintAllItems();
+
+        // Part Three: Using ItemManager<Fruit>
+        ItemManager<Fruit> fruitManager = new ItemManager<Fruit>();
+
+        fruitManager.AddItem(new Fruit("Apple", "Red"));
+        fruitManager.AddItem(new Fruit("Banana", "Yellow"));
+        fruitManager.AddItem(new Fruit("Grapes", "Purple"));
+
+        Console.WriteLine("\nFruit List:");
+        fruitManager.PrintAllItems();
     }
 }
 
 public class ItemManager
 {
-    // FIXED: Proper initialization to avoid NullReferenceException
     private List<string> items = new List<string>();
 
     public void AddItem(string item)
@@ -61,7 +71,6 @@ public class ItemManager
 
 public class ItemManager<T>
 {
-    // FIXED: Proper initialization
     private List<T> items = new List<T>();
 
     public void AddItem(T item)
@@ -80,5 +89,22 @@ public class ItemManager<T>
     public void ClearAllItems()
     {
         items = new List<T>();
+    }
+}
+
+public class Fruit
+{
+    public string Name { get; set; }
+    public string Color { get; set; }
+
+    public Fruit(string name, string color)
+    {
+        Name = name;
+        Color = color;
+    }
+
+    public override string ToString()
+    {
+        return $"{Name} ({Color})";
     }
 }
